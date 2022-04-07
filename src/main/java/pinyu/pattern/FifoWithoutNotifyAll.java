@@ -33,9 +33,9 @@ public class FifoWithoutNotifyAll extends Pattern implements Runnable {
 	private static AtomicInteger txNum = new AtomicInteger(1);
 
 	public void run() {
-		int myTxNum = txNum.getAndIncrement();
 		Object dummyObj = new Object();
 		while (!stopSignal.get()) {
+			int myTxNum = txNum.getAndIncrement();
 			requestQueue.add(dummyObj);
 
 			while (requestQueue.peek() != dummyObj) {
