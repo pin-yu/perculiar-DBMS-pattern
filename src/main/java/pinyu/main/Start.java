@@ -10,8 +10,8 @@ import pinyu.pattern.Pattern;
 public class Start {
 	// FifoWithoutNotifyAll: 0, FifoWithNotifyAll: 1
 	public static final int PATTERN_TYPE = 1;
-	public static final int BENCHMARK_TIME_IN_MS = 5000;
-	public static final int THREAD_SLEEP_TIME_IN_MS = 10;
+	public static final int BENCHMARK_TIME_IN_MS = 1000;
+	public static final int THREAD_SLEEP_TIME_IN_MS = 1;
 
 	private static ExecutorService executor;
 	private static final int THREAD_NUM = 10;
@@ -31,10 +31,11 @@ public class Start {
 		}
 
 		Pattern.stop();
+//		executor.shutdownNow();
 		
 		// wait for a while
 		try {
-			Thread.sleep(THREAD_SLEEP_TIME_IN_MS);
+			Thread.sleep(5000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
