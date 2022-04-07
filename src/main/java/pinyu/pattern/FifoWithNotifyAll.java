@@ -47,6 +47,7 @@ public class FifoWithNotifyAll extends Pattern implements Runnable {
 					}
 				}
 
+				wakeUpOrders.add(myTxNum * 10000);
 				executionOrders.add(myTxNum);
 				requestQueue.poll();
 				locker.set(myTxNum);

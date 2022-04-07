@@ -32,6 +32,13 @@ public class Start {
 
 		Pattern.stop();
 		
+		// wait for a while
+		try {
+			Thread.sleep(THREAD_SLEEP_TIME_IN_MS);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		
 		// Generate a report
 		FifoWithNotifyAll.generateReports();
 
