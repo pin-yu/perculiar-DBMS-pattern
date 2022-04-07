@@ -22,8 +22,8 @@ public class FifoWithNotifyAll extends Pattern implements Runnable {
 	private static List<Integer> executionOrders = new ArrayList<Integer>();
 
 	public void run() {
+		int myTxNum = txNum.getAndIncrement();
 		while (!stopSignal.get()) {
-			int myTxNum = txNum.getAndIncrement();
 			synchronized (record) {
 				requestQueue.add(myTxNum);
 			}

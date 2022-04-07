@@ -11,14 +11,14 @@ public class Start {
 	// FifoWithoutNotifyAll: 0, FifoWithNotifyAll: 1
 	public static final int PATTERN_TYPE = 1;
 	public static final int BENCHMARK_TIME_IN_MS = 5000;
-	public static final int THREAD_SLEEP_TIME_IN_MS = 1;
+	public static final int THREAD_SLEEP_TIME_IN_MS = 10;
 
 	private static ExecutorService executor;
 	private static final int THREAD_NUM = 10;
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		executor = Executors.newWorkStealingPool(THREAD_NUM);
+//		executor = Executors.newFixedThreadPool(THREAD_NUM);
 
 		for (int i = 0; i < THREAD_NUM; i++) {
 			executor.execute(jobFactory());
