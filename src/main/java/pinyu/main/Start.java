@@ -3,10 +3,15 @@ package pinyu.main;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import pinyu.pattern.FifoPattern;
+import pinyu.pattern.FifoWithNotifyAll;
+import pinyu.pattern.FifoWithoutNotifyAll;
+import pinyu.pattern.Pattern;
 
 public class Start {
-	public static final int THREAD_SLEEP_TIME_IN_MS = 100;
+	// FifoWithoutNotifyAll: 0, FifoWithNotifyAll: 1
+	public static final int PATTERN_TYPE = 1;
+	public static final int BENCHMARK_TIME_IN_MS = 5000;
+	public static final int THREAD_SLEEP_TIME_IN_MS = 10;
 
 	private static ExecutorService executor;
 	private static final int THREAD_NUM = 100;
@@ -16,15 +21,31 @@ public class Start {
 		executor = Executors.newWorkStealingPool(THREAD_NUM);
 
 		for (int i = 0; i < THREAD_NUM; i++) {
-			executor.execute(new FifoPattern());
+			executor.execute(jobFactory());
 		}
 
-		Thread ct = Thread.currentThread();
 		try {
-			ct.join();
+			Thread.sleep(BENCHMARK_TIME_IN_MS);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		System.out.println("main thread is terminated");
+
+		Pattern.stop();
+		
+		// Generate a report
+		FifoWithNotifyAll.generateReports();
+
+		System.out.println("Benchmark completes");
+	}
+
+	public static Runnable jobFactory() {
+		switch (PATTERN_TYPE) {
+		case 0:
+			return new FifoWithoutNotifyAll();
+		case 1:
+			return new FifoWithNotifyAll();
+		default:
+			return null;
+		}
 	}
 }

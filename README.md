@@ -13,7 +13,7 @@ and the waken thread will check the queue to see
 whether it has the right to get the resource.
 These wake-then-check behavior causes quite a few overhead.
 
-Fifo pattern can be used to amortize the overhead because NOTIFY ALL is
+FifoWithoutNotifyAll can be used to amortize the overhead because NOTIFY ALL is
 eliminated. The key point is to let each thread wait on different objects
 (proxy object). With the proper use of an atmoic queue
 (concurrentLinkedQueue), a worker thread now can put a proxy object into the
